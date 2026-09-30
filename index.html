@@ -81,7 +81,13 @@
   .hero small { letter-spacing: .35em; text-transform: uppercase; font-weight: 600; color: var(--pink); }
   .hero h1 { font-size: clamp(3.4rem, 15vw, 7rem); line-height: 1.05; color: var(--deep); margin: 12px 0; text-shadow: 0 6px 24px rgba(255, 122, 168, .35); }
   .hero .typed { font-size: clamp(1.05rem, 3.6vw, 1.3rem); font-weight: 500; min-height: 3.2em; max-width: 520px; }
-  .typed::after { content: '|'; color: var(--pink); animation: blink 1s steps(1) infinite; }
+  /* Metnin tamamı baştan yer kaplar; harfler yerinde görünür olur, böylece hiçbir şey kaymaz */
+  .typed .rest { visibility: hidden; }
+  .typed .caret { position: relative; }
+  .typed .caret::after {
+    content: ''; position: absolute; left: 1px; top: .1em; width: 2px; height: 1.1em;
+    background: var(--pink); animation: blink 1s steps(1) infinite;
+  }
   @keyframes blink { 50% { opacity: 0; } }
   .scroll-hint { margin-top: 48px; font-size: 1.6rem; animation: bob 1.8s ease-in-out infinite; opacity: .7; }
 
@@ -340,11 +346,15 @@
     const chars = Array.from(TYPED_TEXT);
     let i = 0;
     clearInterval(typeTimer);
-    el.textContent = '';
+    el.innerHTML = '<span class="done"></span><span class="caret"></span><span class="rest"></span>';
+    const done = el.querySelector('.done'), rest = el.querySelector('.rest');
+    rest.textContent = TYPED_TEXT;
     typeTimer = setInterval(() => {
-      el.textContent = chars.slice(0, ++i).join('');
+      i++;
+      done.textContent = chars.slice(0, i).join('');
+      rest.textContent = chars.slice(i).join('');
       if (i >= chars.length) clearInterval(typeTimer);
-    }, 55);
+    }, 70);
   }
 
   // Çiçek yaprakları
