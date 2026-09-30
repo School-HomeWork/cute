@@ -331,16 +331,19 @@
     envelope.classList.add('open');
     if (!muted) setMusic(true);
     setTimeout(() => { intro.classList.add('gone'); typeText(); }, 700);
-  });
+  }, { once: true });
 
   // Yazı efekti
+  let typeTimer = null;
   function typeText() {
     const el = document.getElementById('typed');
     const chars = Array.from(TYPED_TEXT);
     let i = 0;
-    const t = setInterval(() => {
-      el.textContent += chars[i++];
-      if (i >= chars.length) clearInterval(t);
+    clearInterval(typeTimer);
+    el.textContent = '';
+    typeTimer = setInterval(() => {
+      el.textContent = chars.slice(0, ++i).join('');
+      if (i >= chars.length) clearInterval(typeTimer);
     }, 55);
   }
 
