@@ -185,33 +185,12 @@
   }
   #yt { position: fixed; width: 1px; height: 1px; left: -9999px; bottom: 0; }
 
-  /* Telefonda açılmasın: dar ekranlarda içerik yerine uyarı göster */
-  #no-phone { display: none; }
-  @media (max-width: 767px) {
-    #no-phone {
-      position: fixed; inset: 0; z-index: 100;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 14px; padding: 32px; text-align: center;
-      background: linear-gradient(160deg, #ffd9e8, #fff1e6 55%, #e8dcff);
-    }
-    #no-phone .icon { font-size: 3.2rem; animation: bob 2s ease-in-out infinite; }
-    #no-phone h1 { font-size: 2.4rem; color: var(--deep); }
-    #no-phone p { font-weight: 500; line-height: 1.6; max-width: 320px; }
-    body { overflow: hidden; }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
 </style>
 </head>
 <body>
-
-<div id="no-phone">
-  <span class="icon">💻</span>
-  <h1 class="script">Bir saniye…</h1>
-  <p>Bu sayfa telefonda açılmıyor. 🙈<br>Lütfen tablet ya da bilgisayardan aç; orada çok daha güzel görünüyor.</p>
-</div>
 
 <div id="petals"></div>
 
